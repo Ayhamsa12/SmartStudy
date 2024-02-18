@@ -1,0 +1,95 @@
+﻿@using ProjectX.Interface
+@using ProjectX.Services
+@model IEnumerable<Galaxsy>
+@{
+    Layout = "_Layout2";
+}
+<style>
+    .paragraph{
+        padding: 10px;
+        margin: 5px;
+        background: #5f9ea00a;
+    }
+    .btn1{
+        padding: 10px;
+        background: #4ef614;
+        border: 0px;
+        border-radius: 3px;
+        margin:2px;
+    }
+
+    .btn2 {
+        padding: 10px;
+        background: red;
+        border: 0px;
+        border-radius: 3px;
+        margin: 2px;
+    }
+
+    .btns{
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .format {
+        width: 700PX;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin: 20PX;
+        display: flex;
+        justify-content: center;
+    }
+
+</style>
+<div style="    display: flex;
+    flex-direction: column;
+    align-items: center;">
+<h2 style="text-align:center; margin-top:20px;">Views Requests</h2>
+
+
+@foreach (var request in Model)
+{
+    <div class="format">
+            <div style="text-align:center; margin-top:20px; width: 100%;">
+        <p class="paragraph"> <span class="h5">Student:</span> @request.User.UserName</p>
+        <p class="paragraph">Name the Summary: @request.Name</p>
+        <p class="paragraph">Message: @request.Message</p>
+        <p class="paragraph">Subject name: @request.Subject.SubjectName</p>
+
+        @if (request.Subjects != null && request.Subjects.Any())
+        {
+            <p>Subjects:</p>
+            <ul>
+                @foreach (var subject in request.Subjects)
+                {
+                    <li>@subject.SubjectName</li>
+                }
+            </ul>
+        }
+
+        @if (!string.IsNullOrEmpty(request.AttachmentFile))
+        {
+            
+             @* <p>Attachment File: <a asp-controller="Request" asp-action="DownloadFile" asp-route-filename="@request.AttachmentFile">Download File</a></p> *@
+            <p class="paragraph">Attachment File: <a href="@request.AttachmentFile" download target="_blank">Download File</a></p>
+         }
+         <div class="btns">
+        <form asp-controller="Request" asp-action="ApproveRequest" method="post">
+            <input type="hidden" name="requestId" value="@request.GalaxsyId" />
+            <input type="submit" value="Accept" class="btn1" />
+        </form>
+
+        <form asp-controller="Request" asp-action="DeclineRequest" method="post">
+            <input type="hidden" name="requestId" value="@request.GalaxsyId" />
+            <input type="submit" value="Reject" class="btn2" />
+        </form>
+        </div>
+    </div>
+    </div>
+    <hr />
+}
+</div>

@@ -1,0 +1,549 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Study</title>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css'>
+   
+    <link rel="stylesheet" href="~/css2/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css2/fontawsom-all.min.css">
+    <link rel="stylesheet" href="~/css2/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css2/style.css">
+    <link rel="stylesheet" href="~/css2/all.min.css">
+    <link rel="stylesheet" href="~/css2/animate.css">
+    <link rel="stylesheet" href="~/css2/bootstrap.min.css.map">
+    <link rel="stylesheet" href="~/css2/owl.carousel.css">
+    <link rel="stylesheet" href="~/fonts/Montserrat-Bold.ttf">
+    <link rel="stylesheet" href="~/css2/style.css.map">
+    <link rel="stylesheet" href="~/css/index.css">
+    <style>
+        .nav-link{
+        display: block;
+      
+        padding: 10px 0px;
+        border-top: 1px solid #2b2b2b;
+        color: #fff;
+        font-size: 15px;
+        }
+        .nav-link:hover{
+                color: #fdc800;
+        }
+    </style>
+ 
+    @{
+        Layout = null;
+    }
+
+
+</head>
+<body>
+
+    <header>
+        <div class="my-nav">
+            <div class="container">
+                <div class="row">
+                    <div class="nav-items">
+                        <div class="menu-toggle"></div>
+                        <div class="logo">
+                            <h2 style="color: white;">Smart Study</h2>
+                        </div>
+                        <div class="menu-items">
+                            <div class="menu">
+                              
+
+                                @{
+                                    var isAuthenticated = User.Identity.IsAuthenticated;
+                                    var isAdmin = isAuthenticated && User.IsInRole("admin");
+                                }
+                                <ul>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    </li>
+                                    <li>   <a asp-action="About_us" asp-controller="Home">About Us</a></li>
+                                   
+                                    @if (isAuthenticated)
+                                    {
+                                        @if (isAdmin)
+                                        {
+                                            <li class="nav-item">
+                                               <a asp-area="" asp-controller="AdminDashboard" asp-action="Index">Dashboard</a>
+                                            </li>
+                                        }
+                                        <li class="nav-item" >
+                                            <a asp-action="ProfileUser" asp-controller="Account">profile</a>
+                                        </li>
+                                        
+                                        <li class="nav-item">
+                                            <form asp-area="" asp-controller="Account" asp-action="Logout">
+                                                <button class="btn_1"> <i class="fa fa-sign-out" style="font-size:18px;color:red"></i> Logout</button>
+                                            </form>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li> <a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                        </li>
+
+                                    }
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================slider section started====================== -->
+
+    <section id="carouselExampleFade" class="carousel slide carousel-fade slider" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/images/uni.png" class="d-block" alt="...">
+                <div class="carousel-caption">
+                    <h4 style="width: max-content;"></h4>
+                    <div class="button-01">
+                        <button id="scrollButton" onclick="scrollToDiv()">explore our things</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </section>
+
+    <!-- ====================== section started====================== -->
+
+    <section class="bg-01">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="se-box">
+                        <div class="icon">
+                            <img class="img_v" src="/roadmap.png" />
+                        </div>
+                        <div class="content">
+                            <h3>Roadmaps</h3>
+                            <p>Utilize roadmaps to guide your learning process. 
+                                They can help you understand your summaries and pave the way towards successful graduation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="se-box">
+                        <div class="icon">
+                            <img class="img_v" src="/qa.png" />
+                        </div>
+                        <div class="content">
+                            <h3>Questions & Answers</h3>
+                            <p>Engage in active discussions with fellow students. Ask for help with your material,
+                                or participate by answering their questions. This interactive learning can enhance your understanding of the subject.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="se-box">
+                        <div class="icon">
+                            <img class="img_v" src="/reference.png" />
+                        </div>
+                        <div class="content">
+                            <h3>Collect References</h3>
+                            <p>Gather all the necessary references and watch videos to gain a comprehensive understanding of the material.
+                                This will provide a solid foundation for your studies.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="se-box">
+                        <div class="icon">
+                            <img class="img_v" src="/contract.png" />
+                        </div>
+                        <div class="content">
+                            <h3>Share Your Summaries</h3>
+                            <p>Contribute to the learning community by sharing your own summaries.
+                                This not only reinforces your understanding but also aids other students in their learning journey.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main id="targetDiv" class="main_swiper">
+        <div>
+            <span>discover</span>
+            <h1>Smart study</h1>
+            <hr>
+
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide swiper-slide--one">
+                        <div>
+                            <h2>Department</h2>
+                            <p></p>
+                            <a asp-action="Category" asp-controller="Category">
+                                Explore
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide swiper-slide--two">
+                        <div>
+                            <h2>Chat</h2>
+                            <p></p>
+                            <a asp-action="QandA" asp-controller="QandA">
+                                Explore
+                            </a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide swiper-slide--three">
+                        <div>
+                            <h2>Add Summary</h2>
+                            <p></p>
+                            <a asp-action="SubmitRequest" asp-controller="Request">Explore</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </main>
+
+    
+
+
+    <!-- ====================== Blog Section started====================== -->
+
+    <section class="bg-04">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="heading">
+                        <h2>Major Roadmap</h2>
+                        <p>
+                            Welcome to our IT hub! Explore our tree plans for a quick dive into Computer Science, Software Engineering, and Cyber Security. Happy learning!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <article class="_lk_bg_sd_we">
+                        <a href="https://res.cloudinary.com/ddzsl2gft/image/upload/v1705330424/cs_ustbg5.png" target="_blank">
+                        <div class="_bv_xs_we"></div>
+                        </a>
+                        <div class="_xs_we_er">
+                            <div class="_he_w">
+                                    <h3>Computer Science ROADMAP</h3>
+                                
+                                    <p>Master programming, data structures, and algorithms. Progress through web development,applications,
+                                        databases, and explore specialized areas like Artificial Intelligence and cloud computing,
+                                        staying agile with industry trends.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <article class="_lk_bg_sd_we">
+                        <a href="https://res.cloudinary.com/ddzsl2gft/image/upload/v1705330424/cyper_security__dkebc4.png" target="_blank">
+                        <div class="_bv_xs_we2"></div></a>
+                        <div class="_xs_we_er">
+                            <div class="_he_w">
+                                    <h3>Cyper Security ROADMAP</h3>
+
+                                    <p>Understand computer networks, operating systems, and programming. Dive into cybersecurity,
+                                        implement security measures,
+                                        and stay updated on evolving threats, gaining practical experience through hands-on projects.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <article class="_lk_bg_sd_we">
+
+                        <a href="https://res.cloudinary.com/ddzsl2gft/image/upload/v1705330424/engineer_lygjxo.png" target="_blank">
+                            <div class="_bv_xs_we3"></div></a>
+                        </a>
+                        <div class="_xs_we_er">
+                            <div class="_he_w">
+                                <h3>Software Engineering ROADMAP</h3>
+                               
+                                <p>Build a foundation in programming, web development, and software engineering methodologies.
+                                    Master version control systems, 
+                                    explore advanced topics like cloud computing, and refine skills through collaborative projects.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                  
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================== Team Started started====================== -->
+
+    <section class="team">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="heading">
+                        <h2>OUR TEAM</h2>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="our-team">
+                        <div class="item">
+                            <div class="team-card">
+
+                                <div class="team-content">
+                                    <h3>Ayham Samaha</h3>
+                                    <p>Computer Science</p>
+                                    <ol>
+                                        <li><i class="fab fa-facebook-f"></i></li>
+                                        <li><i class="fab fa-instagram"></i></li>
+                                        <li><i class="fab fa-linkedin-in"></i></li>
+                                        <li><i class="fab fa-pinterest-p"></i></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item" style="PADDING-LEFT: 60PX;">
+                            <div class="team-card">
+
+                                <div class="team-content">
+                                    <h3>Abdallah Mostafa</h3>
+                                    <p>Cyber Security</p>
+                                    <ol>
+                                        <li><i class="fab fa-facebook-f"></i></li>
+                                        <li><i class="fab fa-instagram"></i></li>
+                                        <li><i class="fab fa-linkedin-in"></i></li>
+                                        <li><i class="fab fa-pinterest-p"></i></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="team-card">
+
+                                <div class="team-content">
+                                    <h3>Abdelrahman Abu kuhail</h3>
+                                    <p>Computer Science</p>
+                                    <ol>
+                                        <li><i class="fab fa-facebook-f"></i></li>
+                                        <li><i class="fab fa-instagram"></i></li>
+                                        <li><i class="fab fa-linkedin-in"></i></li>
+                                        <li><i class="fab fa-pinterest-p"></i></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================== Footer Section started====================== -->
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <div class="_kl_de_w">
+                        <h3>SMART STUDY</h3>
+                        <p>
+                            Welcome to our platform! We provide a blend of Q&A forums, IT material summaries, and instructional videos.
+                            Our content covers Cyber Security, Computer Science, and Software Engineering. Join us for a streamlined IT learning experience!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <div class="_kl_de_w">
+                        <h3>Quick Links</h3>
+                        <ol>
+                            <li> <a class="nav-link" asp-action="Index" asp-controller="Home"> <i class="far fa-angle-right"></i>home</a></li>
+                            <li> <a class="nav-link" asp-action="About_us" asp-controller="Home"> <i class="far fa-angle-right"></i>About Us</a></li>
+                            <li> <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login"> <i class="far fa-angle-right"></i>Login</a></li>
+                            <li> <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register"> <i class="far fa-angle-right"></i>Register</a></li>
+                            <li class="last"><i class="far fa-angle-right"></i>Contact Us</li>
+                        </ol>
+                    </div>
+                </div>
+
+         
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <div class="_kl_de_w">
+                        <h3>Contact Us</h3>
+                        <form class="my-form">
+                            <div class="form-group">
+                                <input class="form-control" type="email" name="email" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <textarea rows="3" placeholder="Message" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <a href="#">Submit</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="copy-right">
+                        <p>   &copy; 2023 - SmartStudy -<a href="https://www.freeprivacypolicy.com/live/f2feeb67-3987-41e4-9955-5782f3548c0a" class="PRIV">Privacy</a></p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js'></script>
+ 
+    <script src="~/js2/bootstrap.min.js"></script>
+    <script src="~/js2/jquery-3.2.1.min.js"></script>
+    <script src="~/js2/owl.carousel.js"></script>
+    <script src="~/js2/owl.carousel.min.js"></script>
+    <script src="~/js2/popper.js"></script>
+    <script src="~/js2/popper.min.js"></script>
+    <script src="~/js2/script.js"></script>
+  @*   <script src="~/js/index.js"></script> *@
+    <script>
+
+        $(document).ready(function () {
+            $('.menu-toggle').click(function () {
+                $('.menu-toggle').toggleClass('active')
+                $('.menu').toggleClass('active')
+            });
+        });
+
+        $(() => {
+
+            //On Scroll Functionality
+            $(window).scroll(() => {
+                var windowTop = $(window).scrollTop();
+                windowTop > 50 ? $('header').addClass('og-hf') : $('header').removeClass('og-hf');
+            });
+        });
+
+        $('.counting').each(function () {
+            var $this = $(this),
+                countTo = $this.attr('data-count');
+
+            $({ countNum: $this.text() }).animate({
+                countNum: countTo
+            },
+
+                {
+
+                    duration: 3000,
+                    easing: 'linear',
+                    step: function () {
+                        $this.text(Math.floor(this.countNum));
+                    },
+                    complete: function () {
+                        $this.text(this.countNum);
+                        //alert('finished');
+                    }
+
+                });
+
+        });
+
+        $(document).ready(function () {
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
+                loop: true,
+                margin: 10,
+                navRewind: false,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+
+                    440: {
+                        items: 2
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 4
+                    }
+                }
+            })
+        });
+
+
+
+        function scrollToDiv() {
+            var targetDiv = document.getElementById('targetDiv');
+            targetDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Show the scroll button when scrolling down
+        window.onscroll = function () {
+            var scrollButton = document.getElementById('scrollButton');
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollButton.style.display = 'block';
+            } else {
+                scrollButton.style.display = 'block';
+            }
+        };
+
+
+        var swiper = new Swiper(".swiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 3,
+                slideShadows: true
+            },
+            loop: true,  // Set loop to true
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2
+                },
+                768: {
+                    slidesPerView: 1
+                },
+                1024: {
+                    slidesPerView: 2
+                },
+                1560: {
+                    slidesPerView: 3
+                }
+            }
+        });
+
+      </script>
+</body>
+</html>

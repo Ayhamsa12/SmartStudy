@@ -1,0 +1,71 @@
+﻿@model ProjectX.ViewModels.SubjectDetailViewModel
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/detail.css">
+</head>
+<body>
+    <div class="container_detail">
+    <div class="div1">
+    <div>
+         <h1>@Model.Subject.SubjectName</h1>
+    </div>
+    <div class="div_p">
+         <h2 class="text">:ملخصات المادة</h2>
+    </div>
+       
+
+    <div class="cards-container">
+    
+    
+        <div class="cards-container1">
+        @foreach (var summary in Model.Summaries)
+        {
+           <div class="buttons1">
+                @if (!string.IsNullOrEmpty(summary.AttachmentFile))
+                {
+                    @if (summary.IsApproved == true)
+                    {
+                        <a href="@summary.AttachmentFile" download target="_blank" class="btn123">@summary.Name</a>
+                    }
+                    else {<p>No Summary For this Subject</p> }
+                }
+                else
+                {
+                    <P>No file attached</P>
+                }
+            </div>
+        }
+        </div>
+           
+    
+
+
+    </div>
+       
+           
+<div class="div_p">
+    <h2 class="text">:فيديوهات المادة</h2>
+</div>
+    <div class="cards-container">
+   
+    @if (Model.References.Any())
+    {
+
+        @foreach (var reference in Model.References)
+        {
+            <iframe class="youtube1" src="@reference.YouTubePlaylist"
+                    title="YouTube video player" frameborder="0" allow="accelerometer;
+                    autoplay; clipboard-write; encrypted-media; gyroscope;
+                    picture-in-picture; web-share" allowfullscreen></iframe>
+        }      
+    }
+    else
+    {
+        <p>No references for this subject.</p>
+    }
+  
+</div>
+</div>
+    </div>
+</body>
+</html>

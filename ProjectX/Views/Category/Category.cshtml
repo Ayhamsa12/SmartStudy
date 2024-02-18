@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ProjectX.Models.Category>
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/CategorySS.css">
+    <style>
+       
+    </style>
+</head>
+<body>
+
+    <div class="container_1">
+        <div class="div_p">
+            <center><h2 class="head_99">اقسام كلية تكنولوجيا المعلومات</h2></center>
+
+        </div>
+        <main class="main flow">
+            @foreach (var category in Model)
+            {
+                <p>
+
+                    <div class="maincards cards">
+                        <div class="cardsinner">
+                            <div class="cardscard card">
+                                <div class="div_card_head">
+                                    <h3 class="cardheading">@category.CategoryName </h3>
+                                </div>
+
+                                <ul role="list" class="cardbullets flow">
+                                    <li>Access The Department Details</li>
+                                    <li><small>الدخول الى تفاصيل القسم</small></li>
+                                </ul>
+                                <a asp-action="Subject" asp-controller="Subject" asp-route-categoryId="@category.CategoryId" class="cardcta cta">
+                                    View Subjects
+                                </a>
+                                
+                            </div>
+
+                        </div>
+
+                    </div>
+                </p>
+            }
+        </main>
+    </div>
+</body>

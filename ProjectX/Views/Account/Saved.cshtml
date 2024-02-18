@@ -1,0 +1,35 @@
+﻿@model List<SavedQuestion>
+<head>
+    <title>SavedQuestion</title>
+    <link rel="stylesheet" type="text/css" href="~/css/saved.css">
+ 
+</head>
+<body>
+<div class="container_1">
+    <div class="div_1">
+            <h2 style="color:white;">Saved Questions</h2>
+        </div>
+        <div class="section_saved">
+@if (Model.Any())
+{
+
+    <ul class="ul-q">
+        @foreach (var savedQuestion in Model)
+        {
+
+            <li style="list-style:none;">
+                <h4>@savedQuestion.UserQuestion.Title</h4>
+                <p class="question-content">@savedQuestion.UserQuestion.Content</p>           
+                <a asp-action="ViewQuestion" asp-controller="QandA" asp-route-id="@savedQuestion.UserQuestionId" class="btn btn-primary" style=" border-color: #2b2270; background: linear-gradient(136deg, #0f0c29, #302b63, #24243e);">View Question</a>
+            </li>
+          <hr />
+        }
+    </ul>
+}
+else
+{
+    <p>No saved questions yet.</p>
+}
+</div>
+</div>
+</body>

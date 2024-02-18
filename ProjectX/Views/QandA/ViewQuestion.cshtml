@@ -1,0 +1,196 @@
+﻿@using ProjectX.ViewModels
+@model UserQuestionViewModel
+
+
+    
+ <link rel="stylesheet" href="/css/QandASS.css" />
+    
+ <style>
+    .popup input:checked ~ nav {
+        transform: scale(var(--nav-active-scale));
+        visibility: visible;
+        opacity: 1;
+        margin-top: -10px;
+        padding: 0px;
+    }
+ </style>
+
+
+
+
+<div class="qq-container">
+            <div class="card mt-3">
+            <div class="card-body">
+            <h2>@Model.Title</h2>
+            <h4><pre><code dir="auto" class="language-csharp" style="unicode-bidi: isolate;">@Model.Content</code></pre></h4>
+            <p>
+            Created by:<span style=" color: #0d00ff;font-size: 18px;">@Model.User.UserName</span>
+            @Model.CreatedAt
+            </p>
+
+    <p>Score: @Model.Score</p>
+        <div id="answersContainer" style=" background-color: #f9f9f9;">
+        @if (Model.Answers.Any())
+        {
+            <h4>Answers</h4>
+            <div id="answersList" class="answer_div">
+                @foreach (var answer in Model.Answers)
+                {
+                    <div class="answer_div123">
+                    <div id="answer-@answer.Id" class="answer_idd" data-user-name="@User.Identity.Name">
+
+                    <p class="para1">@answer.ReplyContent<br /> by:<span style="color: #0d00ff;font-size: 16px;"> @answer.UserName </span></p>
+                      @if (User.Identity.IsAuthenticated && User.Identity.Name == answer.UserName)
+                      {
+                        <label class="popup">
+                        <input type="checkbox">
+                        <div class="burger" tabindex="0">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        </div>
+                        <nav class="popup-window">
+                            <ul>   
+                                <li>
+                                    <button class="BUTTON_MENU">
+                                    <span style=" font-size: 20px;">
+                                    <a style="color: #0a6dff;text-decoration: none;" onclick="editAnswer(@answer.Id)">Edit</a>
+                                    </span>
+                                    </button>
+                                </li>
+
+                                <li>
+                                    <form asp-controller="QandA" asp-action="DeleteAnswer" method="post" onsubmit="return confirm('Are you sure you want to delete this Answer?');">
+                                        <input type="hidden" name="id" value="@answer.Id" />
+                                        <button class="BUTTON_MENU">
+                                            <span style="font-size: 20px; color: red;">
+
+                                                delete
+
+                                            </span>
+                                        </button>
+                                    </form>
+                                </li>
+
+                            </ul>
+                            </nav>
+                            </label>
+                      }
+                            </div>
+                            </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>No answers yet.</p>
+        }
+    </div>
+
+            <div id="postAnswerContainer" class="qqq-container">
+                <h4>Your Answer</h4>
+                <form id="postAnswerForm" data-question-id="@Model.Id">
+                    <div class="form-group">
+                        <label for="ReplyContent">Your Answer:</label>
+                        <textarea class="form-control" id="ReplyContent" name="ReplyContent" required></textarea>
+                    </div>
+                    <button type="button" onclick="postAnswerDirectly()" class="btn btn-primary" style="color: #fff;
+                 background: linear-gradient(136deg, #0f0c29, #302b63, #24243e);
+             border-color: #2b2270;">
+                        Post Your Answer
+                    </button>
+                </form>
+            </div>
+      
+
+  <center> <a asp-action="QandA" asp-controller="QandA" class="btn btn-secondary" style="margin-top:20px;">Back to List</a></center>
+  </div>
+  </div>
+  </div>
+    
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.14/signalr.min.js"></script>
+<script src="~/js/chat.js"></script>
+<script>
+    connection.on("ReceiveQuestion", (title, content) => {
+        // Handle received question
+        console.log(`Received Question: ${title} - ${content}`);
+    });
+
+    connection.on("ReceiveAnswer", (questionId, replyContent, userName, answerId) => {
+        // Handle received answer
+        console.log(`Received Answer from ${userName}: ${replyContent}`);
+
+        // Check if #answersList is empty
+        if ($("#answersList").length === 0) {
+            // If empty, create the list and add the first answer
+            $("#answersContainer").append("<h3>Answers</h3>");
+            $("#answersContainer").append("<div id='answersList' class='answer_div'></div>");
+        }
+
+        // Update the answers container with the new answer
+        var newAnswer = '<div class="answer_div123"><div id="answer-' + answerId + '" class="answer_idd">';
+        newAnswer += '<p class="para1">' + replyContent + '<br /> by:<span style="color: #0d00ff;font-size: 16px;">' + userName + '</span></p>';
+        newAnswer += '<label class="popup"><input type="checkbox"><div class="burger" tabindex="0"><span></span><span></span><span></span></div>';
+        newAnswer += '<nav class="popup-window"><ul><li><button class="BUTTON_MENU"><span style="font-size: 20px;"><a style="color: #0a6dff;text-decoration: none;" onclick="editAnswer(' + answerId + ')">Edit</a></span></button></li>';
+        newAnswer += '<li><form asp-controller="QandA" asp-action="DeleteAnswer" method="post" onsubmit="return confirm(\'Are you sure you want to delete this Answer?\');"><input type="hidden" name="id" value="' + answerId + '" /><button class="BUTTON_MENU"><span style="font-size: 20px; color: red;">delete</span></button></form></li></ul></nav></label></div></div>';
+        $("#answersList").append(newAnswer);
+        location.reload();
+    });
+
+    function postAnswerDirectly() {
+        var questionId = $("#postAnswerForm").data("question-id");
+        var replyContent = $("#ReplyContent").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/QandA/PostAnswer",
+            data: { userQuestionId: questionId, replyContent: replyContent },
+            success: function (data) {
+                // Clear the text field
+                $("#ReplyContent").val('');
+            }
+        });
+    }
+    function editAnswer(answerId) {
+        // Implement AJAX call to fetch the answer content by ID
+        $.ajax({
+            url: '/QandA/GetAnswerContent',
+            type: 'GET',
+            data: { answerId: answerId },
+            success: function (data) {
+                // Display the content in a textarea for editing
+                $('#answer-' + answerId).html('<textarea style="width: -webkit-fill-available;" id="editAnswerContent-' + answerId + '">' + data.content + '</textarea>' +
+                    '<button class="btn btn-primary" style"width: 100px; padding: 5px;margin: 15px; " onclick="saveEditedAnswer(' + answerId + ')">Save</button>' +
+                    '<button class="btn btn btn-primary" style"width: 100px; padding: 5px;margin: 15px; " onclick="cancelEditAnswer(' + answerId + ')">Cancel</button>');
+            }
+        });
+    }
+
+    function saveEditedAnswer(answerId) {
+        // Implement AJAX call to save the edited answer
+        var questionId = $('#answer-' + answerId).data('question-id');
+        var editedContent = $('#editAnswerContent-' + answerId).val();
+        var userName = $('#answer-' + answerId).data('user-name');
+        $.ajax({
+            url: '/QandA/EditAnswer',
+            type: 'POST',
+            data: { answerId: answerId, editedContent: editedContent },
+            success: function () {
+                // Update the displayed content after successful editing
+                $('#answer-' + answerId).html('Edited content: ' + editedContent);
+                /* '<button class="btn btn btn-primary" onclick="editAnswer(' + answerId + ')">Edit</button>' */
+                connection.invoke("ReceiveAnswer", questionId, editedContent, userName);
+            }
+           
+        });
+        location.reload();
+    }
+    function cancelEditAnswer(answerId) {
+       
+        location.reload();
+    }
+</script>
+ 

@@ -1,0 +1,203 @@
+﻿@model IEnumerable<Subject>
+
+<head>
+    <meta charset="UTF-8">
+    <title>student exams</title>
+    <link rel="stylesheet" type="text/css" href="~/css/SubjectSS.css">
+    <style>
+        .Btn {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition-duration: 0.3s;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+            background: rgb(243 0 0);
+            background: linear-gradient( 250deg, rgb(247 0 0) 15%, rgb(194 0 0) 65% );
+        }
+        /* plus sign */
+        .sign {
+            width: 100%;
+            transition-duration: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .sign svg {
+                width: 17px;
+            }
+
+                .sign svg path {
+                    fill: white;
+                }
+        /* text */
+        .text {
+            position: absolute;
+            right: 0%;
+            width: 0%;
+            opacity: 0;
+            color: white;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition-duration: 0.3s;
+        }
+        /* hover effect on button width */
+        .Btn:hover {
+            width: 125px;
+            border-radius: 40px;
+            transition-duration: 0.3s;
+        }
+
+            .Btn:hover .sign {
+                width: 30%;
+                transition-duration: 0.3s;
+                padding-left: 20px;
+            }
+            /* hover effect button's text */
+            .Btn:hover .text {
+                opacity: 1;
+                width: 70%;
+                transition-duration: 0.3s;
+                padding-right: 10px;
+            }
+        /* button click effect*/
+        .Btn:active {
+            transform: translate(2px, 2px);
+        }
+
+        .edit-button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgb(20, 20, 20);
+            border: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+            cursor: pointer;
+            transition-duration: 0.3s;
+            overflow: hidden;
+            position: relative;
+            text-decoration: none !important;
+        }
+
+        .edit-svgIcon {
+            width: 17px;
+            transition-duration: 0.3s;
+        }
+
+            .edit-svgIcon path {
+                fill: white;
+            }
+
+        .edit-button:hover {
+            width: 130px;
+            height: 45px;
+            border-radius: 50px;
+            transition-duration: 0.3s;
+            background-color: rgb(0 159 248 / 98%);
+            align-items: center;
+        }
+        
+
+            .edit-button:hover .edit-svgIcon {
+                width: 20px;
+                transition-duration: 0.3s;
+                transform: translateY(60%);
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+
+        .edit-button::before {
+            display: none;
+            content: "Edit";
+            color: white;
+            transition-duration: 0.3s;
+            font-size: 2px;
+        }
+
+        .edit-button:hover::before {
+            display: block;
+            padding-right: 10px;
+            font-size: 13px;
+            opacity: 1;
+            transform: translateY(0px);
+            transition-duration: 0.3s;
+        }
+
+        .admin_btns{
+            display:flex;
+            align-items:baseline;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container_1">
+        <div class="div_p">
+            <center><h2 class="head_99">قائمة المواد</h2></center>
+            <form asp-action="Search" asp-controller="Subject" class="input_2">
+
+                <div class="group">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                        <g>
+                            <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+                        </g>
+                    </svg>
+                    <input class="input_1" type="search" name="Searchstring" placeholder="Search" />
+                </div>
+            </form>
+
+        </div>
+        <main class="main flow">
+            @{
+                bool isAdmin = User.IsInRole("admin");
+            }
+            @if(Model.Any()){
+
+                @foreach (var item in Model)
+                {
+                    <div class="maincards cards">
+                        <div class="cardsinner">
+                            <div class="cardscard card">
+                              
+                                <h3 class="cardheading">@item.SubjectName </h3>
+                               
+                                <ul role="list" class="cardbullets flow">
+                                    <li>Access the Subject material</li>
+                                    <li><small>الدخول الى تفاصيل المادة</small></li>
+                                </ul>
+
+                                <a asp-controller="Subject" asp-action="Detail" asp-route-id="@item.SubjectId" class="cardcta cta">
+                                    View Details
+                                </a>
+                                
+
+                        </div>
+                    </div>
+                </div>
+                }
+                        
+            }else{
+                <p>No Subject Found </p>
+            }
+
+            
+        </main>
+    </div>
+
+</body>

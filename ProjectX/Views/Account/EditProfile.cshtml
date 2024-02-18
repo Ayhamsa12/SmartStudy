@@ -1,0 +1,90 @@
+﻿@using ProjectX.ViewModels
+@model ChangeProfileViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/ProfilePage/main.css">
+    <style>
+
+        .email {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: center;
+            align-items: baseline;
+            justify-content: center;
+        }
+
+        .links1 {
+            display: flex;
+        }
+
+        .form111{
+            display: flex;
+            flex-direction: column;
+            margin-top: 59px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .form-group{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 6px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="div11">
+        
+        <div class="container_11">
+            <div class="cover-photo">
+                
+                @if (!string.IsNullOrEmpty((string)ViewData["OldPhotoUrl"]))
+                {
+                    <img src="@((string)ViewData["OldPhotoUrl"])" class="profile" alt="Old-Profile-Image">
+                }
+                else
+                {
+                    <img src="https://res.cloudinary.com/ddzsl2gft/image/upload/v1705333630/Capture_fhvhgq.png" class="profile" alt="Default-Profile-Image">
+                }
+            </div>
+
+            <form class="form111" asp-action="EditProfile" method="post" enctype="multipart/form-data">
+                <center><h2 style="padding-top: 20px;">Edit Profile</h2></center>
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label style="padding: 5px; width: 120px; " asp-for="UserName"></label>
+                    <input asp-for="UserName" class="input" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label style="padding: 5px; width: 120px; " asp-for="Email"></label>
+                    <input asp-for="Email" readonly class="input" />
+
+                </div>
+
+                <div class="form-group">
+                    <label style="padding: 5px; width: 120px; " asp-for="ProfilePicture"></label>
+                    <input asp-for="ProfilePicture" class="input_1" />
+                    <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="submitBtn">
+                    Save Changes
+                    <svg fill="white" viewBox="0 0 448 512" height="1em" class="arrow">
+                        <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                    </svg>
+                </button>
+            </form>
+          
+        </div>
+    </div>
+</body>
+</html>

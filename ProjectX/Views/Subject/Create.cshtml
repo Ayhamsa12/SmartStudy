@@ -1,0 +1,52 @@
+﻿@model ProjectX.ViewModels.SubjectViewModel
+
+@{
+    ViewData["Title"] = "Create Subject";
+    Layout = "_Layout2";
+}
+
+<head>
+
+    <link rel="stylesheet" href="/css/CreateSubject.css">
+</head>
+
+<body>
+    <div class="container_1">
+        @if (TempData["SubjectSuccess"] != null)
+        {
+            <div class="col-md-12 alert alert-danger" style="    color: white; border:0px;background-color: green; margin-left: 290px;">
+                <span> @TempData["SubjectSuccess"]</span>
+            </div>
+        }
+        <h2>Create Subject</h2>
+
+            <div class="format">
+        <form method="post" asp-action="Create">
+
+
+            <div class="form-group">
+                    <label asp-for="SubjectName"></label>
+                    <input asp-for="SubjectName" class="input" placeholder="Subject Name">
+
+                    <span asp-validation-for="SubjectName" class="text-danger"></span>
+                </div>
+        
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label" style="padding-inline: 16px;">Category</label>
+                <select asp-for="CategoryId" class="input" asp-items="ViewBag.Categories"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+
+            <button type="submit" class="submitBtn">
+                Submit
+                <svg fill="white" viewBox="0 0 448 512" height="1em" class="arrow">
+                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                </svg>
+            </button>
+
+        </form>
+        </div>
+    </div>
+</body>

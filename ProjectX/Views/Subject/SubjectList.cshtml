@@ -1,0 +1,338 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Subject>
+
+@{
+    Layout = "_Layout2";
+}
+<style>
+    .format {
+        width: 700PX;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin: 20PX;
+        display: flex;
+        justify-content: center;
+    }
+
+    .list {
+        padding: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .table {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .rows {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: center;
+        background: #E7EAF5;
+        margin: 20px;
+        border: 2px solid #d7d7d7;
+        padding: 10px;
+        border-radius: 5px;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .cols {
+        margin: 5px;
+    }
+
+   
+
+    .icon {
+        transform: scale(1.2);
+        transition: .2s linear;
+    }
+
+    .btn:hover > .icon {
+        transform: scale(1.5);
+    }
+
+        .btn:hover > .icon path {
+            fill: rgb(168, 7, 7);
+        }
+
+    .btn:hover::after {
+        visibility: visible;
+        opacity: 1;
+        top: -160%;
+    }
+
+    .Btn {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 45px;
+        height: 45px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition-duration: 0.3s;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+        background: rgb(243 0 0);
+        background: linear-gradient( 250deg, rgb(247 0 0) 15%, rgb(194 0 0) 65% );
+    }
+    /* plus sign */
+    .sign {
+        width: 100%;
+        transition-duration: 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .sign svg {
+            width: 17px;
+        }
+
+            .sign svg path {
+                fill: white;
+            }
+    /* text */
+    .text {
+        position: absolute;
+        right: 0%;
+        width: 0%;
+        opacity: 0;
+        color: white;
+        font-size: 1.2em;
+        font-weight: 600;
+        transition-duration: 0.3s;
+    }
+    /* hover effect on button width */
+    .Btn:hover {
+        width: 125px;
+        border-radius: 40px;
+        transition-duration: 0.3s;
+    }
+
+        .Btn:hover .sign {
+            width: 30%;
+            transition-duration: 0.3s;
+            padding-left: 20px;
+        }
+        /* hover effect button's text */
+        .Btn:hover .text {
+            opacity: 1;
+            width: 70%;
+            transition-duration: 0.3s;
+            padding-right: 10px;
+        }
+    /* button click effect*/
+    .Btn:active {
+        transform: translate(2px, 2px);
+    }
+
+    .edit-button {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: rgb(20, 20, 20);
+        border: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+        cursor: pointer;
+        transition-duration: 0.3s;
+        overflow: hidden;
+        position: relative;
+        text-decoration: none !important;
+    }
+
+    .edit-svgIcon {
+        width: 17px;
+        transition-duration: 0.3s;
+    }
+
+        .edit-svgIcon path {
+            fill: white;
+        }
+
+    .edit-button:hover {
+        width: 130px;
+        height: 45px;
+        border-radius: 50px;
+        transition-duration: 0.3s;
+        background-color: rgb(0 159 248 / 98%);
+        align-items: center;
+    }
+
+
+        .edit-button:hover .edit-svgIcon {
+            width: 20px;
+            transition-duration: 0.3s;
+            transform: translateY(60%);
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+
+    .edit-button::before {
+        display: none;
+        content: "Edit";
+        color: white;
+        transition-duration: 0.3s;
+        font-size: 2px;
+    }
+
+    .edit-button:hover::before {
+        display: block;
+        padding-right: 10px;
+        font-size: 13px;
+        opacity: 1;
+        transform: translateY(0px);
+        transition-duration: 0.3s;
+    }
+
+    .admin_btns {
+        display: flex;
+        align-items: baseline;
+    }
+
+    
+    .input_2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+
+
+    .group {
+        display: flex;
+        line-height: 28px;
+        align-items: center;
+        position: relative;
+        width: 360px;
+    }
+
+    .input_1 {
+        width: 360px;
+        height: 40px;
+        line-height: 28px;
+        padding: 0 1rem;
+        padding-left: 2.5rem;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        outline: none;
+        background-color: #f3f3f4;
+        color: #0d0c22;
+        transition: 0.3s ease;
+    }
+
+        .input_1::placeholder {
+            color: #9e9ea7;
+        }
+
+        .input_1:focus,
+        input_1:hover {
+            outline: none;
+            border-color: rgba(234, 226, 183, 0.4);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgb(234 226 183 / 10%);
+        }
+
+    .icon {
+        position: relative;
+        left: 2rem;
+        fill: #9e9ea7;
+        width: 1rem;
+        height: 1rem;
+    }
+
+</style>
+<div class="list">
+    <h2>Reference List</h2>
+    <form asp-action="SubjectListSearch" asp-controller="Subject" class="input_2">
+        <div class="group">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                <g>
+                    <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+                </g>
+            </svg>
+            <input class="input_1" type="search" name="Searchstring" placeholder="Search" />
+        </div>
+    </form>
+    <div class="format">
+        <table class="table">
+            <thead>
+                <tr class="rows">
+                    <th>Subject Name</th>
+
+                </tr>
+            </thead>
+            
+            <tbody>
+                
+                @foreach (var subject in Model)
+                {
+                    <tr class="rows">
+                        
+                        <td class="cols">@subject.SubjectName</td>
+
+
+                        <td class="cols">
+                            
+                                <div class="admin_btns">
+                                    <form style=" margin: 2px;" asp-action="Delete" asp-controller="Subject" method="post">
+                                        <input type="hidden" name="id" value="@subject.SubjectId" />
+                                        <button class="Btn" onclick="return confirm('Are you sure you want to delete this subject?')">
+                                            <div class="sign">
+                                                <svg viewBox="0 0 16 16"
+                                                     class="bi bi-trash3-fill"
+                                                     fill="currentColor"
+                                                     height="18"
+                                                     width="18"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"></path>
+                                                </svg>
+                                            </div>
+
+                                            <div class="text">Delete</div>
+                                        </button>
+
+                                    </form>
+
+                                    <a asp-action="Edit" asp-route-id="@subject.SubjectId">
+                                        <button class="edit-button" style="margin: 2px;">
+                                            <svg class="edit-svgIcon" viewBox="0 0 512 512">
+                                                <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
+                                            </svg>
+                                        </button>
+                                    </a>
+                                </div>
+                            
+                            </td>
+                       
+                    </tr>
+                }
+                
+               
+            </tbody>
+            
+
+        </table>
+    </div>
+</div>

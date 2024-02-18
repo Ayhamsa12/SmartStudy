@@ -1,0 +1,154 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>Admin Dashboard | Keyframe Effects</title>
+    <link rel="stylesheet" href="~/css/AdminDashboardSS.css">
+    
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
+
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle" >
+    <div class="sidebar">
+        <div class="side-header">
+            <h3>A<span>dminDashboard</span></h3>
+        </div>
+
+        <div class="side-content">
+            <div class="profile">
+
+                <h4></h4>
+                <small>Admin</small>
+            </div>
+
+            <div class="side-menu">
+                <ul>
+                    <li>
+
+                        <a asp-area="" asp-controller="Home" asp-action="Index">
+                            <span class="las la-home"></span>
+                            <small>Home page</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Category" asp-action="CreateCategory">
+                            <span class="las la-plus-circle"></span>
+                            <small>Add Depatment</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Category" asp-action="CategoryList">
+                            <span class="las la-tasks"></span>
+                            <small>Department List</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Subject" asp-action="Create">
+                            <span class="las la-plus-circle"></span>
+                            <small>Add New Subject</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Subject" asp-action="SubjectList">
+                            <span class="las la-book"></span>
+                            <small>Subject List</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Request" asp-action="ViewRequests">
+                            <span class="lar la-file-alt"></span>
+                            <small>Summary Request</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Account" asp-action="AddAdmin">
+                            <span class="las la-users-cog"></span>
+                            <small>Add Admin</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Reference" asp-action="AddReference">
+                            <span class="lar la-file-video"></span>
+                            <small>Add reference</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Reference" asp-action="ReferenceList">
+                            <span class="lab la-youtube"></span>
+                            <small>Reference list</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+
+        <header>
+            <div class="header-content">
+                <label for="menu-toggle" style="padding-top: 15px;">
+                    <span class="las la-bars"></span>
+                </label>
+
+                <div class="header-menu">
+                    <label for="">
+                        <span class="las la-search" style="padding-top: 10px;"></span>
+                    </label>
+
+                        <span class="las la-power-off" style="padding-top: 10px;"></span>
+                    <form asp-controller="Account" asp-action="Logout" style="padding-top: 10px;"><button style=" background:none; border:0px;">Logout </button> </form>
+               
+                </div>
+            </div>
+        </header>
+
+        <main>
+
+            <div class="page-content">
+
+                <div class="analytics">
+
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>300</h2>
+                            <span class="las la-user-friends"></span>
+                        </div>
+                        <div class="card-progress">
+
+                            <small>User activity this month</small>
+                            <div class="card-indicator">
+                                <div class="indicator one" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>340,230</h2>
+                            <span class="las la-eye"></span>
+                        </div>
+                        <div class="card-progress">
+                            <small>Page views</small>
+                            <div class="card-indicator">
+                                <div class="indicator two" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                @RenderBody()
+            </div>
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            @await RenderSectionAsync("Scripts", required: false)
+        </main>
+
+    </div>
+</body>
+</html>

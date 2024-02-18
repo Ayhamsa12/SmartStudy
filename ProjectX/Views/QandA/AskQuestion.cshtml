@@ -1,0 +1,49 @@
+﻿
+@model UserQuestion
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/QandASS.css" />
+<style>
+
+        .ask_q_form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+</style>
+</head>
+
+<body>
+    <div class="qq-container">
+    <section class="Q1_section">
+<h2>Ask a Question</h2>
+
+<form class="ask_q_form" asp-action="AskQuestion" asp-controller="QandA" method="post">
+    <div class="form-group">
+            <label>Your Question Title:</label> <br />
+            <input placeholder="Enter your title" type="text" class="title_1" id="Title" name="Title" required>
+    </div>
+    <div class="form-group">
+            <label>Your Question Content:</label>  <br />
+            <textarea class="txt-myquestion" id="Content" name="Content" required></textarea>
+    </div>
+                <center>
+                    <button type="submit" class="btn btn-primary" style="color: #fff;
+                             background: linear-gradient(136deg, #0f0c29, #302b63, #24243e);
+                         border-color: #2b2270;">
+                        Ask Question
+                    </button>
+                </center>
+</form>
+
+        <center><a asp-action="QandA" asp-controller="QandA" class="btn btn-secondary mt-3">Back to Q & A</a></center>
+     
+
+</section>
+</div>
+
+
+
+
+</body>
+</html>

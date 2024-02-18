@@ -1,0 +1,166 @@
+﻿@model ReferenceViewModel
+<html>
+
+<head>
+
+@{
+   Layout = "_Layout2";
+}
+
+    <style>
+        .AR {
+            padding: 31px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form1{
+            DISPLAY: flex;
+            MARGIN: 10PX;
+        }
+
+        .div_btn {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .input {
+            width: 250px;
+            background-color: #f5f5f5;
+            color: #242424;
+            min-height: 40px;
+            border-radius: 4px;
+            outline: none;
+            border: none;
+            line-height: 1.15;
+            box-shadow: 0px 10px 20px -18px;
+            padding-inline: 10px;
+            margin: 5px;
+        }
+
+
+        input:focus {
+            border-bottom: 2px solid #5b5fc7;
+            border-radius: 4px 4px 2px 2px;
+        }
+
+        input:hover {
+            outline: 1px solid lightgrey;
+        }
+
+        .format {
+            width: 700PX;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin: 20PX;
+            display: flex;
+            justify-content: center;
+        }
+        .submitBtn {
+    width: 140px;
+    height: 40px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.13);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+            background: linear-gradient(136deg, #0f0c29, #302b63, #24243e);
+    letter-spacing: 0.7px;
+}
+
+    .submitBtn:hover .arrow {
+        animation: slide-in-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+
+
+
+.submitBtn:active {
+    transform: scale(0.97);
+}
+    </style>
+</head>
+
+<body>
+    <div class="AR">
+        <h2>Add Reference</h2>
+         <div class="format">
+        <form asp-controller="Reference" asp-action="AddReference" class="form1" method="post">
+            <div class="form-group">
+                    <label asp-for="CategoryId" style="display: inline-table;width: 130px;">Category</label>
+                <select asp-for="CategoryId" class="input" id="categoryDropdown" required>
+                    <option value="">Select a category</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.CategoryId">@category.CategoryName</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                    <label asp-for="SubjectId" style="display: inline-table;width: 130px;">Subject</label>
+                <select asp-for="SubjectId" class="input" id="subjectDropdown" disabled>
+                    <option value="">Select a subject</option>
+                </select>
+                <span asp-validation-for="SubjectId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                    <label asp-for="Name" style="display: inline-table;width: 130px;">Reference Name:</label>
+                <input asp-for="Name" class="input" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                    <label asp-for="YouTubePlaylist" style="display: inline-table;width: 130px;">YouTube Playlist:</label>
+                <input asp-for="YouTubePlaylist" class="input" required />
+                <span asp-validation-for="YouTubePlaylist" class="text-danger"></span>
+            </div>
+
+            <div class="div_btn">
+                <button type="submit" class="submitBtn">
+                    Add reference
+                    <svg fill="white" viewBox="0 0 448 512" height="1em" class="arrow">
+                        <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                    </svg>
+                </button>
+            </div>
+        </form>
+        </div>
+    </div>
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                $("#categoryDropdown").change(function () {
+                    var categoryId = $(this).val();
+                    if (categoryId !== "") {
+                        $.ajax({
+                            url: "/Request/GetSubjectsByCategory",
+                            type: "GET",
+                            data: { categoryId: categoryId },
+                            success: function (data) {
+                                $("#subjectDropdown").prop("disabled", false).html(data);
+                            },
+                            error: function () {
+                                // Handle error
+                            }
+                        });
+                    } else {
+                        $("#subjectDropdown").prop("disabled", true).html("<option value=''>Select a subject</option>");
+                    }
+                });
+            });
+        </script>
+    }
+    
+</body>
+</html>

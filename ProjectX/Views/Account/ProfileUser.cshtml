@@ -1,0 +1,32 @@
+﻿@model UserProfileViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/ProfilePage/main.css">
+</head>
+<body>
+    <div class="div11">
+        <div class="container_11">
+            <div class="cover-photo" >
+               @if (!string.IsNullOrEmpty(Model.ProfilePicture))
+                {
+                    <img src="@Model.ProfilePicture" class="profile">
+                }
+                else
+                {
+                    <img src="https://res.cloudinary.com/ddzsl2gft/image/upload/v1705333630/Capture_fhvhgq.png" class="profile" alt="Default-Profile-Image">
+                }
+            </div>
+            <div class="profile-name">@Model.UserName</div>
+            <div class="email">
+                <h6>Email:</h6>
+                <h6 class="about">@Model.Email</h6>
+            </div>
+            <div class="links1">
+                <a asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+            <a asp-controller="Account" asp-action="EditProfile">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,218 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+
+body{
+    margin:0px;
+}
+    main {
+    width: calc(min(120rem, 100%));
+    margin: 0 auto;
+    min-height: 100vh;
+    column-gap: 3rem;
+    padding-block: min(20vh, 3rem);
+   
+}
+
+
+.btn_1 {
+    background: none;
+    color: white;
+    border: 0px;
+    color: #fff;
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+.btn_1:hover {
+    background: none;
+    color: white;
+    border: 0px;
+    color: yellow;
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+.bg2 {
+    position:fixed;
+    z-index: -1; 
+    top:-190px;
+    opacity: 0;
+   
+}
+
+main > div span {
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 1rem;
+    color: #717171;
+}
+
+main > div h1 {
+    text-transform: capitalize;
+    letter-spacing: 0.8px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-size: clamp(3.4375rem, 3.25rem + 0.75vw, 4rem);
+    background-color: #005baa;
+    background-image: linear-gradient(45deg, #005baa, #000000);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}
+
+main > div hr {
+    display: block;
+    background: #005baa;
+    height: 0.25rem;
+    width: 6.25rem;
+    border: none;
+    margin: 1.125rem 0 1.875rem 0;
+}
+
+main > div p {
+    line-height: 1.6;
+}
+
+main a {
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #717171;
+    font-weight: 500;
+    background: #fff;
+    border-radius: 3.125rem;
+    transition: 0.3s ease-in-out;
+}
+
+main > div > a {
+    border: 2px solid #c2c2c2;
+    margin-top: 2.188rem;
+    padding: 0.625rem 1.875rem;
+}
+
+    main > div > a:hover {
+        border: 0.125rem solid #005baa;
+        color: #005baa;
+    }
+
+.swiper-pagination-bullet,
+.swiper-pagination-bullet-active {
+    background: #fff;
+}
+
+.swiper-pagination {
+    bottom: 1.25rem !important;
+}
+.main_swiper {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 51px;
+    background: rgb(238, 246, 255);
+    position: relative;
+    overflow: hidden;
+    min-height: -webkit-fill-available;
+    width: 100%;
+}
+
+.swiper-slide {
+    width: 18.75rem;
+    height: 28.125rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: self-start;
+}
+
+    .swiper-slide h2 {
+        color: #fff;
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-size: 1.4rem;
+        line-height: 1.4;
+        margin-bottom: 0.625rem;
+        background: #715cb142;
+        border-radius: 17px;
+        text-align: center;
+        margin-left: 10px;
+        padding-inline: 10px;
+    }
+    }
+
+    .swiper-slide p {
+        color: #dadada;
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        padding: 0 1.563rem;
+        line-height: 1.6;
+        font-size: 0.75rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .swiper-slide a {
+        margin: 1.25rem 1.563rem 3.438rem 1.563rem;
+        padding: 0.438em 1.875rem;
+        font-size: 0.9rem;
+    }
+
+        .swiper-slide a:hover {
+            color: #005baa;
+        }
+
+    .swiper-slide div {
+        display: none;
+        opacity: 0;
+        padding-bottom: 0.625rem;
+    }
+
+.swiper-slide-active div {
+    display: block;
+    opacity: 1;
+}
+
+.swiper-slide--one {
+    background: url("https://cdn.discordapp.com/attachments/1158110124326531123/1194393299864264816/departments.png?ex=65b03071&is=659dbb71&hm=d2c42086c78b598bc3c7606b4db70d53fb0a22d779da8a640c59f5f9a5686a31&") no-repeat 50% 50%/cover;
+}
+
+.swiper-slide--two {
+    background: url("https://cdn.discordapp.com/attachments/1158110124326531123/1194393299281260725/Q_and_A.png?ex=65b03071&is=659dbb71&hm=91a781d6c744af49e1d5a22fbcb846f553ede73439e060033890e6d502287a66&") no-repeat 50% 50%/cover;
+}
+
+.swiper-slide--three {
+    background: url("https://media.discordapp.net/attachments/1158110124326531123/1194393298954100756/upload.png?ex=65b03071&is=659dbb71&hm=7f8537a2ffc29d1ead33a3dd29e59c91632e63059ad6875b82915f02e43772e1&=&format=webp&quality=lossless&width=868&height=670") no-repeat 50% 50%/cover;
+}
+
+
+
+
+
+.swiper-3d .swiper-slide-shadow-left,
+.swiper-3d .swiper-slide-shadow-right {
+    background-image: none;
+}
+
+@media screen and (min-width: 48rem) {
+    main {
+        display: flex;
+        flex-direction:column;
+    }
+
+    .bg,
+    .bg2 {
+        opacity: 0.2;
+    }
+}
+
+@media screen and (min-width: 93.75rem) {
+    .swiper {
+        width: 85%;
+    }
+}

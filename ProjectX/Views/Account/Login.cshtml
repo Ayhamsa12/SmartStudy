@@ -1,0 +1,246 @@
+﻿@using ProjectX.ViewModels
+@using static System.Collections.Specialized.BitVector32;
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+
+<head>
+    
+    <link rel="stylesheet" href="~/css2/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css2/fontawsom-all.min.css"> 
+    <link rel="stylesheet" href="~/css2/owl.carousel.min.css"> 
+    <link rel="stylesheet" href="~/css2/style.css">
+    <link rel="stylesheet" href="~/css2/all.min.css"> 
+    <link rel="stylesheet" href="~/css2/animate.css"> 
+    <link rel="stylesheet" href="~/css2/bootstrap.min.css.map">
+    <link rel="stylesheet" href="~/css2/owl.carousel.css">
+    <link rel="stylesheet" href="~/fonts/Montserrat-Bold.ttf"> 
+    <link rel="stylesheet" href="~/css2/style.css.map">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/loginSS.css">
+   <style> 
+       .my-nav {
+    position: fixed;
+    width: 100%;
+    padding: 10px 0px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    padding: 0px;
+    background: rgba(0, 33, 71, 0.9);
+    height:70px;
+    }
+
+        .form-group {
+            margin-bottom: 0px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: #ffffff;
+            text-decoration: none;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+        }
+
+            .nav-link:hover {
+                color: #ffffff;
+            }
+
+        .my-nav .nav-items .logo {
+            width: 30%;
+            max-width: 30%;
+            flex: 1 1 30%;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+   
+</head>
+
+<body>
+   <header>
+        <div class="my-nav">
+            <div class="container">
+                <div class="row">
+                    <div class="nav-items">
+                        <div class="menu-toggle"></div>
+                        <div class="logo">
+                            <h2 style="color: white;">Smart Study</h2>
+                        </div>
+                        <div class="menu-items">
+                            <div class="menu">
+                                @{
+                                    var isAuthenticated = User.Identity.IsAuthenticated;
+                                    var isAdmin = isAuthenticated && User.IsInRole("admin");
+                                }
+                                <ul>
+                                    <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                                    <li> <a asp-action="About_us" asp-controller="Home">About Us</a></li>
+                                    <li> <a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                                  
+                                    @if (isAuthenticated)
+                                    {
+                                        <li class="nav-item">
+                                            <form asp-area="" asp-controller="Account" asp-action="Logout">
+                                                <button class="btn_1"> <i class="fa fa-sign-out" style="font-size:18px;color:red"></i> Logout</button>
+                                            </form>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                        </li>
+
+                                    }
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header> 
+
+    <div class="row11">
+        
+        <div class="col-md-6 offset-3">
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="col-md-12 alert alert-danger" style="    color: #000000; border:0px;background-color: #ff5722e6; margin-left: 290px;">
+                    <span><b>Sorry!</b> - @TempData["Error"]</span>
+                </div>
+            }
+            @if (TempData["RegisterSuccess"] != null)
+            {
+                <div class="col-md-12 alert alert-danger" style="    color: white; border:0px;background-color: green; margin-left: 290px;">
+                    <span> @TempData["RegisterSuccess"]</span>
+                </div>
+            }
+            <div class="row">
+              
+                <div class="col-md-8 offset-2">
+                    <section>
+                       <div class="img">
+                         <img src="/images/LoginPage.png" />
+                       </div>
+                        <form asp-action="Login">
+                            <p>
+                                <center>
+                                    <h4>Log in to your account</h4>
+                                </center>
+                            </p>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control" required />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password" class="control-label"></label>
+                                <input asp-for="Password" class="form-control" required/>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group1">
+                                <input class="btn btn-outline-success float right" style="color:white;" type="submit" value="Log in" />
+                                <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="index" style="color:white;">Cancel</a>
+                            </div>
+
+                            <div class="register-txt">
+                                Not Yet Member? <a class="nav-link " asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link " asp-area="" asp-controller="Account" asp-action="ForgotPassword">Forget Your Password?</a>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="~/js2/bootstrap.min.js"></script>
+    <script src="~/js2/jquery-3.2.1.min.js"></script>
+    <script src="~/js2/owl.carousel.js"></script>
+    <script src="~/js2/owl.carousel.min.js"></script>
+    <script src="~/js2/popper.js"></script>
+    <script src="~/js2/popper.min.js"></script>
+    <script src="~/js2/script.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('.menu-toggle').click(function () {
+                $('.menu-toggle').toggleClass('active')
+                $('.menu').toggleClass('active')
+            });
+        });
+
+        $(() => {
+
+            //On Scroll Functionality
+            $(window).scroll(() => {
+                var windowTop = $(window).scrollTop();
+                windowTop > 50 ? $('header').addClass('og-hf') : $('header').removeClass('og-hf');
+            });
+        });
+
+        $('.counting').each(function () {
+            var $this = $(this),
+                countTo = $this.attr('data-count');
+
+            $({ countNum: $this.text() }).animate({
+                countNum: countTo
+            },
+
+                {
+
+                    duration: 3000,
+                    easing: 'linear',
+                    step: function () {
+                        $this.text(Math.floor(this.countNum));
+                    },
+                    complete: function () {
+                        $this.text(this.countNum);
+                        //alert('finished');
+                    }
+
+                });
+
+        });
+
+        $(document).ready(function () {
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
+                loop: true,
+                margin: 10,
+                navRewind: false,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+
+                    440: {
+                        items: 2
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 4
+                    }
+                }
+            })
+        });
+</script>
+</body>

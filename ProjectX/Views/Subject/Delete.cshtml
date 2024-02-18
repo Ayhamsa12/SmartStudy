@@ -1,0 +1,19 @@
+﻿@model ProjectX.Models.Subject
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/UserProfileSS.css">
+</head>
+<body>
+    <div class="container_1">
+<h2>Confirm Deletion</h2>
+
+<p>Are you sure you want to delete the subject: @Model.SubjectName?</p>
+
+<form method="post" asp-action="Delete">
+    <input type="hidden" asp-for="SubjectId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-controller="Subject" asp-action="Subject" class="btn btn-secondary">Cancel</a>
+</form>
+
+    </div>
+</body>

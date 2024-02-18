@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ProjectX.ViewModels.UserQuestionViewModel
+
+<html>
+<head>
+    <link rel="stylesheet" href="/css/QandASS.css" />
+    <style>
+
+        .ask_q_form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="qq-container">
+        <section class="Q1_section">
+            <h2>Edit Question</h2>
+
+            <form class="ask_q_form" asp-controller="QandA" asp-action="EditQuestion" method="post">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="Title"></label> <br />
+                    <input asp-for="Title" class="title_1" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                   
+                   
+                </div>
+                <div class="form-group">
+                    <label asp-for="Content"></label><br />
+                    <textarea asp-for="Content" class="txt-myquestion"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                <center>
+                    <button type="submit" class="btn btn-primary" style="color: #fff;
+                             background: linear-gradient(136deg, #0f0c29, #302b63, #24243e);
+                         border-color: #2b2270;">
+                      Save Question
+                    </button>
+                </center>
+            </form>
+
+            <center><a asp-action="QandA" asp-controller="QandA" class="btn btn-secondary mt-3">Back to Q & A</a></center>
+
+
+        </section>
+    </div>
+
+
+
+</body>
+</html>
